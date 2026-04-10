@@ -1,0 +1,491 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300..700&display=swap');
+
+/* ─── DESIGN TOKENS ─────────────────────────────────────────────── */
+:root {
+  --bg: #f7f4ef;
+  --surface: #faf8f4;
+  --surface2: #fff;
+  --surface3: #f0ece4;
+  --border: rgba(40, 30, 10, 0.1);
+  --divider: rgba(40, 30, 10, 0.07);
+  --text: #1c1810;
+  --muted: #7a6f5e;
+  --faint: #b5ab9a;
+  --inv: #faf8f4;
+  --primary: #c75c2a;
+  --primary-h: #a84420;
+  --primary-hl: rgba(199, 92, 42, 0.12);
+  --gold: #d4a017;
+  --teal: #2a7c6f;
+  --purple: #7c4fa0;
+  --r-sm: 6px;
+  --r-md: 10px;
+  --r-lg: 16px;
+  --r-xl: 22px;
+  --r-full: 9999px;
+  --sh-sm: 0 1px 3px rgba(0, 0, 0, 0.07);
+  --sh-md: 0 4px 16px rgba(0, 0, 0, 0.1);
+  --sh-lg: 0 12px 40px rgba(0, 0, 0, 0.14);
+  --tr: 160ms cubic-bezier(0.16, 1, 0.3, 1);
+  --font-display: 'Instrument Serif', Georgia, serif;
+  --font-body: 'DM Sans', 'Helvetica Neue', sans-serif;
+}
+
+.dark {
+  --bg: #141210;
+  --surface: #1c1a17;
+  --surface2: #232019;
+  --surface3: #2a271f;
+  --border: rgba(255, 240, 200, 0.08);
+  --divider: rgba(255, 240, 200, 0.05);
+  --text: #e8e0d0;
+  --muted: #8a8070;
+  --faint: #4a4540;
+  --inv: #1c1a17;
+  --primary: #e07848;
+  --primary-h: #f08858;
+  --primary-hl: rgba(224, 120, 72, 0.15);
+  --gold: #e8b830;
+  --teal: #3ab89f;
+  --purple: #a070d0;
+  --sh-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+  --sh-md: 0 4px 16px rgba(0, 0, 0, 0.4);
+  --sh-lg: 0 12px 40px rgba(0, 0, 0, 0.6);
+}
+
+/* ─── BASE ───────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100dvh;
+  line-height: 1.6;
+  transition: background var(--tr), color var(--tr);
+}
+
+img { display: block; max-width: 100%; height: auto; }
+
+button {
+  cursor: pointer;
+  background: none;
+  border: none;
+  font: inherit;
+  color: inherit;
+  transition: background var(--tr), color var(--tr), transform var(--tr), box-shadow var(--tr);
+}
+button:active { transform: scale(0.97); }
+
+input {
+  font: inherit;
+  color: inherit;
+  border: none;
+  outline: none;
+  background: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+  border-radius: var(--r-sm);
+}
+
+/* ─── SCROLLBAR ──────────────────────────────────────────────────── */
+.no-scroll::-webkit-scrollbar { display: none; }
+.no-scroll { scrollbar-width: none; }
+
+/* ─── APP SHELL ──────────────────────────────────────────────────── */
+.app-shell {
+  display: grid;
+  grid-template-rows: 56px 1fr 60px;
+  height: 100dvh;
+  overflow: hidden;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+@media (min-width: 480px) {
+  .app-shell {
+    border-left: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+  }
+}
+
+/* ─── TOP BAR ────────────────────────────────────────────────────── */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  color: var(--text);
+  font-style: italic;
+}
+
+.icon-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--r-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+}
+.icon-btn:hover { background: var(--surface3); color: var(--text); }
+
+/* ─── BOTTOM NAV ─────────────────────────────────────────────────── */
+.bottom-nav {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+}
+
+.nav-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  padding: 8px 4px;
+  color: var(--muted);
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  transition: color var(--tr);
+}
+.nav-item.active { color: var(--primary); }
+.nav-item svg { transition: transform var(--tr); }
+.nav-item.active svg { transform: scale(1.1); }
+
+/* ─── MAIN SCROLL AREA ───────────────────────────────────────────── */
+.main-scroll {
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  background: var(--bg);
+}
+
+/* ─── BTN VARIANTS ───────────────────────────────────────────────── */
+.btn {
+  padding: 9px 18px;
+  border-radius: var(--r-full);
+  font-size: 0.82rem;
+  font-weight: 600;
+  border: 1px solid transparent;
+  transition: all var(--tr);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.btn-primary {
+  background: var(--primary);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(199, 92, 42, 0.3);
+}
+.btn-primary:hover { background: var(--primary-h); box-shadow: 0 4px 16px rgba(199, 92, 42, 0.4); }
+.btn-ghost {
+  background: transparent;
+  border-color: var(--border);
+  color: var(--muted);
+}
+.btn-ghost:hover { background: var(--surface3); color: var(--text); }
+.btn-sm { padding: 6px 14px; font-size: 0.78rem; }
+.btn-block { width: 100%; justify-content: center; }
+
+/* ─── TAGS ───────────────────────────────────────────────────────── */
+.tag {
+  padding: 3px 10px;
+  border-radius: var(--r-full);
+  font-size: 0.7rem;
+  background: var(--surface3);
+  color: var(--muted);
+  border: 1px solid var(--border);
+}
+
+/* ─── SECTION LABEL ──────────────────────────────────────────────── */
+.section-label {
+  padding: 0 20px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+
+/* ─── BOOK CARD ──────────────────────────────────────────────────── */
+.book-card { flex-shrink: 0; width: 110px; cursor: pointer; transition: transform var(--tr); }
+.book-card:hover { transform: translateY(-3px); }
+.book-cover {
+  width: 110px;
+  height: 165px;
+  border-radius: var(--r-md);
+  object-fit: cover;
+  background: var(--surface3);
+  box-shadow: var(--sh-md);
+}
+.book-cover-ph {
+  width: 110px;
+  height: 165px;
+  border-radius: var(--r-md);
+  background: linear-gradient(145deg, var(--surface3), var(--surface));
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--faint);
+  box-shadow: var(--sh-sm);
+}
+.book-title {
+  margin-top: 7px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--text);
+  max-width: 105px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+.book-author { font-size: 0.7rem; color: var(--muted); margin-top: 2px; }
+
+/* ─── MOOD CHIP ──────────────────────────────────────────────────── */
+.mood-chip {
+  flex-shrink: 0;
+  padding: 6px 14px;
+  border-radius: var(--r-full);
+  border: 1px solid var(--border);
+  font-size: 0.8rem;
+  color: var(--muted);
+  background: var(--surface);
+  transition: all var(--tr);
+  cursor: pointer;
+}
+.mood-chip:hover, .mood-chip.active {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+}
+
+/* ─── TAROT SECTION ──────────────────────────────────────────────── */
+.tarot-section {
+  margin: 8px 20px 20px;
+  padding: 20px;
+  background: linear-gradient(135deg, var(--surface2), var(--surface3));
+  border: 1px solid var(--border);
+  border-radius: var(--r-xl);
+  box-shadow: var(--sh-md);
+  position: relative;
+  overflow: hidden;
+}
+.tarot-section::before {
+  content: '';
+  position: absolute;
+  top: -30px; right: -30px;
+  width: 120px; height: 120px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--primary-hl), transparent 70%);
+  pointer-events: none;
+}
+.tarot-tag { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--primary); margin-bottom: 8px; }
+.tarot-title { font-family: var(--font-display); font-size: 1.1rem; font-style: italic; color: var(--text); margin-bottom: 4px; }
+.tarot-author { font-size: 0.8rem; color: var(--muted); margin-bottom: 10px; }
+.tarot-reason { font-size: 0.82rem; color: var(--muted); line-height: 1.5; border-left: 2px solid var(--primary); padding-left: 10px; font-style: italic; }
+
+/* ─── SWIPE CARD ─────────────────────────────────────────────────── */
+.swipe-card {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--r-xl);
+  overflow: hidden;
+  box-shadow: var(--sh-lg);
+  cursor: grab;
+  user-select: none;
+  background: var(--surface2);
+  will-change: transform;
+}
+.swipe-card:active { cursor: grabbing; }
+.swipe-card.gone-left { transform: translateX(-140%) rotate(-20deg) !important; opacity: 0; pointer-events: none; transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s; }
+.swipe-card.gone-right { transform: translateX(140%) rotate(20deg) !important; opacity: 0; pointer-events: none; transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s; }
+
+.like-indicator {
+  position: absolute; top: 20px; left: 16px;
+  padding: 6px 14px; border-radius: var(--r-full);
+  font-size: 0.8rem; font-weight: 700; letter-spacing: 0.05em;
+  background: rgba(42, 124, 111, 0.9); color: #fff;
+  opacity: 0; transition: opacity 0.2s; transform: rotate(-8deg);
+  z-index: 10;
+}
+.nope-indicator {
+  position: absolute; top: 20px; right: 16px;
+  padding: 6px 14px; border-radius: var(--r-full);
+  font-size: 0.8rem; font-weight: 700; letter-spacing: 0.05em;
+  background: rgba(180, 60, 60, 0.9); color: #fff;
+  opacity: 0; transition: opacity 0.2s; transform: rotate(8deg);
+  z-index: 10;
+}
+
+/* ─── STACK BADGES ───────────────────────────────────────────────── */
+.badge-curious  { background: rgba(212,160,23,0.15);  color: var(--gold);    font-size: 0.65rem; font-weight: 700; padding: 2px 8px; border-radius: var(--r-full); }
+.badge-reading  { background: rgba(42,124,111,0.15);  color: var(--teal);   font-size: 0.65rem; font-weight: 700; padding: 2px 8px; border-radius: var(--r-full); }
+.badge-done     { background: rgba(199,92,42,0.15);   color: var(--primary);font-size: 0.65rem; font-weight: 700; padding: 2px 8px; border-radius: var(--r-full); }
+.badge-loved    { background: rgba(124,79,160,0.15);  color: var(--purple); font-size: 0.65rem; font-weight: 700; padding: 2px 8px; border-radius: var(--r-full); }
+
+/* ─── DNA CARD ───────────────────────────────────────────────────── */
+.dna-card {
+  background: linear-gradient(135deg, #1a0a2e, #0d1f1a, #1a0808);
+  border-radius: var(--r-xl);
+  padding: 28px;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--sh-lg);
+  min-height: 280px;
+}
+.dna-card::before {
+  content: ''; position: absolute; top: -60px; right: -60px;
+  width: 200px; height: 200px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(200,100,50,0.3), transparent 70%);
+  pointer-events: none;
+}
+.dna-card::after {
+  content: ''; position: absolute; bottom: -40px; left: -40px;
+  width: 160px; height: 160px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(42,124,111,0.25), transparent 70%);
+  pointer-events: none;
+}
+
+/* ─── MODAL ──────────────────────────────────────────────────────── */
+.modal-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(6px);
+  z-index: 200;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+.modal-sheet {
+  background: var(--surface);
+  border-radius: var(--r-xl) var(--r-xl) 0 0;
+  width: 100%;
+  max-width: 480px;
+  max-height: 85dvh;
+  overflow-y: auto;
+  animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@keyframes slideUp {
+  from { transform: translateY(40px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+.modal-handle { width: 36px; height: 4px; border-radius: 2px; background: var(--border); margin: 12px auto 0; }
+
+/* ─── TOGGLE ─────────────────────────────────────────────────────── */
+.toggle {
+  width: 42px; height: 24px; border-radius: 12px;
+  background: var(--surface3); border: 1px solid var(--border);
+  position: relative; cursor: pointer;
+  transition: background var(--tr), border-color var(--tr);
+  flex-shrink: 0;
+}
+.toggle.on { background: var(--primary); border-color: var(--primary); }
+.toggle::after {
+  content: ''; position: absolute; top: 3px; left: 3px;
+  width: 16px; height: 16px; border-radius: 50%; background: #fff;
+  box-shadow: var(--sh-sm); transition: transform var(--tr);
+}
+.toggle.on::after { transform: translateX(18px); }
+
+/* ─── TOAST ──────────────────────────────────────────────────────── */
+.toast {
+  position: fixed; bottom: 76px; left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: var(--text); color: var(--inv);
+  padding: 10px 20px; border-radius: var(--r-full);
+  font-size: 0.82rem; font-weight: 500;
+  box-shadow: var(--sh-lg); opacity: 0;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 300; white-space: nowrap; pointer-events: none;
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* ─── EMPTY STATE ────────────────────────────────────────────────── */
+.empty-state {
+  display: flex; flex-direction: column; align-items: center;
+  text-align: center; padding: 48px 20px; color: var(--muted);
+  gap: 8px;
+}
+.empty-state svg { color: var(--faint); margin-bottom: 8px; }
+.empty-state h3 { font-size: 1rem; font-weight: 600; color: var(--text); }
+.empty-state p { font-size: 0.85rem; max-width: 28ch; }
+
+/* ─── SPINNER ────────────────────────────────────────────────────── */
+@keyframes spin { to { transform: rotate(360deg); } }
+.spinner {
+  width: 20px; height: 20px;
+  border: 2px solid var(--border);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  display: inline-block;
+}
+
+/* ─── AUTH SCREEN ────────────────────────────────────────────────── */
+.auth-input {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: var(--r-lg);
+  border: 1px solid var(--border);
+  background: var(--surface2);
+  font-size: 0.95rem;
+  color: var(--text);
+  transition: border-color var(--tr);
+}
+.auth-input:focus { border-color: var(--primary); outline: none; }
+
+/* ─── LANE BTN ───────────────────────────────────────────────────── */
+.lane-btn {
+  padding: 10px;
+  border-radius: var(--r-md);
+  border: 1px solid var(--border);
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-align: center;
+  color: var(--muted);
+  background: var(--surface2);
+  transition: all var(--tr);
+  cursor: pointer;
+}
+.lane-btn.selected, .lane-btn:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+  background: var(--primary-hl);
+}
