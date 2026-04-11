@@ -39,14 +39,25 @@
 
 ## 🚀 Quick Start
 
-### 1. Clone / unzip the project
+### 1. Prerequisites
+if your system do not have "npm" (nodejs) installed then follow the below steps
+
+-- Download the Installer: Visit the Node.js Downloads page and select the LTS (Long Term Support) version for your operating system.
+
+-- Run the File: Open the downloaded .msi (Windows) or .pkg (macOS) file to launch the setup wizard.
+
+-- Follow the Prompts: Accept the license agreement and keep the default settings. On Windows, ensure the "Add to PATH" option is checked so you can run Node from your terminal.
+
+-- Finish & Restart: Click "Install" and then "Finish." It is recommended to restart your terminal or computer to apply the changes
+
+### 2. Clone / unzip the project
 
 ```bash
 cd pagepulse
 npm install
 ```
 
-### 2. Configure environment variables
+### 3. Configure environment variables
 
 ```bash
 cp .env.example .env
@@ -61,14 +72,14 @@ VITE_OPENAI_API_KEY=sk-...
 VITE_GOOGLE_BOOKS_API_KEY=        # optional
 ```
 
-### 3. Set up Supabase
+### 4. Set up Supabase
 
 1. Create a project at [supabase.com](https://supabase.com)
 2. Go to **SQL Editor** and paste the contents of `supabase/migrations/001_init.sql`
 3. Run the query — it creates tables, RLS policies, triggers and indexes
 4. Copy your **Project URL** and **anon key** from Settings → API
 
-### 4. Run locally
+### 5. Run locally
 
 ```bash
 npm run dev
@@ -76,7 +87,7 @@ npm run dev
 
 Open [http://localhost:5173](http://localhost:5173)
 
-### 5. Build for production
+### 6. Build for production
 
 ```bash
 npm run build
